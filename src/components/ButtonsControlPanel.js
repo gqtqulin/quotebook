@@ -1,14 +1,16 @@
 import Button from '@mui/material/Button';
 
-const ButtonsControlPanel = ({setQuote}) => {
+const ButtonsControlPanel = ({setQuoteText, setQuoteAuthor}) => {
 
     const handleRequestTodayQuot = async () => {
         try {
           const response = await fetch('https://favqs.com/api/qotd')
           const data = await response.json()
           console.log(data)
+          console.log(13337)
           if (data) {
-            setQuote(data.quote.body)
+            setQuoteText(data.quote.body)
+            setQuoteAuthor(data.quote.author)
           }
         } catch (error) {
           console.error(error)
@@ -16,7 +18,7 @@ const ButtonsControlPanel = ({setQuote}) => {
       }
 
     return (<div>
-        <Button variant="contained" onClick={handleRequestTodayQuot}>Запросить цитату дня</Button>
+        <Button variant="contained" onClick={handleRequestTodayQuot}>Say something smart</Button>
     </div>)
 }
 

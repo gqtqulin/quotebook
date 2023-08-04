@@ -1,7 +1,7 @@
 
 const Header = () => {
-    return (<div>
-        <h1>quotebook</h1>
+    return (<div className='w-full mt-5 flex justify-center items-center'>
+        <h1 className='text-4xl font-bold'>quotebook</h1>
     </div>)
 }
 
