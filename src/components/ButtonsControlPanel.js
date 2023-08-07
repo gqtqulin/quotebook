@@ -1,25 +1,25 @@
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
+import { requestFavDayQuote } from "../apiRequests";
 
-const ButtonsControlPanel = ({setQuoteText, setQuoteAuthor}) => {
+const ButtonsControlPanel = ({ setQuoteText, setQuoteAuthor }) => {
 
-    const handleRequestTodayQuot = async () => {
-        try {
-          const response = await fetch('https://favqs.com/api/qotd')
-          const data = await response.json()
-          console.log(data)
-          console.log(13337)
-          if (data) {
-            setQuoteText(data.quote.body)
-            setQuoteAuthor(data.quote.author)
-          }
-        } catch (error) {
-          console.error(error)
-        }
-      }
+  const handlerButtonClick = async () => {
+    const data = await requestFavDayQuote();
+    if (data) {
+      setQuoteText(data.quote.body);
+      setQuoteAuthor(data.quote.author);
+    } else {
+      console.error("data is undefined");
+    }
+  };
 
-    return (<div>
-        <Button variant="contained" onClick={handleRequestTodayQuot}>Say something smart</Button>
-    </div>)
-}
+  return (
+    <div>
+      <Button variant="contained" onClick={handlerButtonClick}>
+        response quote
+      </Button>
+    </div>
+  );
+};
 
-export default ButtonsControlPanel
+export default ButtonsControlPanel;
