@@ -1,5 +1,6 @@
-import { getFavDayQuote } from "../apiRequests";
+import { getFavDayQuote } from "../api";
 import styles from "./QuoteCaller.module.css";
+import { getUserToken } from "../api";
 
 const QuoteCaller = ({ setQuoteAuthor, setQuoteText }) => {
   const start = async () => {
@@ -10,7 +11,8 @@ const QuoteCaller = ({ setQuoteAuthor, setQuoteText }) => {
 
   return (
     <div className={styles.caller}>
-      <input type="text" value=""></input>
+      <input type="text" placeholder="Author name"></input>
+      <input type="number" value="1"></input>
       <button className={styles.button} onClick={start}>start</button>
     </div>
   );

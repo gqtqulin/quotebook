@@ -1,4 +1,3 @@
-import App from "./App";
 import axios from 'axios'
 
 const userToken = "cae24442e08f28dd3950239a3331b158";
@@ -6,6 +5,7 @@ const userToken = "cae24442e08f28dd3950239a3331b158";
 export const getFavDayQuote = async () => {
   try {
     const response = await axios.get('http://localhost:3001/api/favquote');
+    
     return {
       author: response.data.quote.author,
       body: response.data.quote.body
@@ -15,26 +15,22 @@ export const getFavDayQuote = async () => {
   }
 };
 
-
-
-
-
-
-
-
 export const getUserToken = async () => {
   try {
-    axios.post('https://favqs.com/api/session', {
-      headers: {
-        
-      }
-    }).then((response) => {
-      return response.data;
-    })
+    const response = await axios.get('http://localhost:3001/api/session');
+
+    return response.data['User-Token'];
   } catch (e) {
     console.error(e);
   }
 }
+
+
+
+
+
+
+
 
 export const startSession = () => {
 

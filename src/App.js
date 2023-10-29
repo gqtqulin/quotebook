@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./App.module.css";
 import QuoteCaller from "./components/QuoteCaller";
 import QuoteContent from "./components/QuoteContent";
+import { getUserToken } from "./api";
 
 //g4taul1n@gmail.com
 //eb0a08a7e73d65b0fc8
@@ -13,7 +14,13 @@ function App() {
   const [quoteAuthor, setQuoteAuthor] = useState();
   const [userToken, setUserToken] = useState();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const start = async () => {
+      console.log(await getUserToken());
+    }
+    
+    start();
+  }, []);
 
   return (
     <div className={styles.page}>
