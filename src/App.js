@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getFavDayQuote, getUserToken } from "./apiRequests";
+import QuoteCaller from "./components/QuoteCaller";
+import QuoteContent from "./components/QuoteContent";
 
 //g4taul1n@gmail.com
 //eb0a08a7e73d65b0fc8
@@ -11,19 +12,12 @@ function App() {
   const [quoteAuthor, setQuoteAuthor] = useState();
   const [userToken, setUserToken] = useState();
 
-  const start = async () => {
-    const favDayQuote = await getFavDayQuote();
-    setQuoteAuthor(favDayQuote.author);
-    setQuoteText(favDayQuote.body);
-  };
-
   useEffect(() => {}, []);
 
   return (
     <div>
-      <h2>{quoteAuthor}</h2>
-      <p>{quoteText}</p>
-      <button onClick={start}>get quote</button>
+      <QuoteCaller setQuoteAuthor={setQuoteAuthor} setQuoteText={setQuoteText} />
+      <QuoteContent quoteAuthor={quoteAuthor} quoteText={quoteText} />
     </div>
   );
 }
