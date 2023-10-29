@@ -1,23 +1,29 @@
-import {useEffect, useState} from 'react'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import ButtonsControlPanel from './components/ButtonsControlPanel'
-import QuotesArea from './components/QuotesArea'
+import { useEffect, useState } from "react";
+import { getFavDayQuote, getUserToken } from "./apiRequests";
+
+//g4taul1n@gmail.com
+//eb0a08a7e73d65b0fc8
+//cae24442e08f28dd3950239a3331b158
+//https://favqs.com/api/qotd - цитата дня
 
 function App() {
-  const [quoteText, setQuoteText] = useState()
-  const [quoteAuthor, setQuoteAuthor] = useState()
+  const [quoteText, setQuoteText] = useState();
+  const [quoteAuthor, setQuoteAuthor] = useState();
+  const [userToken, setUserToken] = useState();
+
+  const start = async () => {
+    const favDayQuote = await getFavDayQuote();
+    setQuoteAuthor(favDayQuote.author);
+    setQuoteText(favDayQuote.body);
+  };
+
+  useEffect(() => {}, []);
 
   return (
-    <div className='App flex gap-10 flex-col items-center'>
-      <Header />
-      <div className='main-section flex flex-col items-center justify-center gap-y-2'>
-        <ButtonsControlPanel setQuoteText={setQuoteText} setQuoteAuthor={setQuoteAuthor} />
-        <QuotesArea quoteText={quoteText} quoteAuthor={quoteAuthor} />
-      </div>
-
-      <Footer />
-
+    <div>
+      <h2>{quoteAuthor}</h2>
+      <p>{quoteText}</p>
+      <button onClick={start}>get quote</button>
     </div>
   );
 }
