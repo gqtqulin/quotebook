@@ -1,0 +1,8 @@
+
+.caller {
+    @apply flex items-center justify-center flex-col gap-4
+}
+
+.button {
+    @apply w-10 h-6 bg-red-200;
+}

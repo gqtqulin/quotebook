@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import styles from "./App.module.css";
 import QuoteCaller from "./components/QuoteCaller";
 import QuoteContent from "./components/QuoteContent";
 
@@ -15,7 +16,7 @@ function App() {
   useEffect(() => {}, []);
 
   return (
-    <div>
+    <div className={styles.page}>
       <QuoteCaller setQuoteAuthor={setQuoteAuthor} setQuoteText={setQuoteText} />
       <QuoteContent quoteAuthor={quoteAuthor} quoteText={quoteText} />
     </div>

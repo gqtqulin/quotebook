@@ -1,0 +1,4 @@
+
+.page {
+    @apply w-screen h-screen bg-zinc-400 flex items-center justify-center flex-col
+}
