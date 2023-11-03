@@ -1,19 +1,30 @@
-import { useState } from 'react';
-import { getFavDayQuote } from "../api";
+import { useState } from "react";
+import { getFavDayQuote, getSpecificQuotes } from "../api";
 import styles from "./QuoteCaller.module.css";
 import { getUserToken } from "../api";
 
 const QuoteCaller = ({ setQuoteAuthor, setQuoteText }) => {
-  const [isSpecificQuote, setSpecificQuote] = useState(false);
+  const [selectState, setSelectState] = useState();
 
   const handlerChangeSelect = (e) => {
-    e.target.value === "specific" ? setSpecificQuote(true) : setSpecificQuote(false);
-  }
+    setSelectState(e.target.value);
+  };
 
   const start = async () => {
-    const favDayQuote = await getFavDayQuote();
-    setQuoteAuthor(favDayQuote.author);
-    setQuoteText(favDayQuote.body);
+    let response;
+
+    // eslint-disable-next-line default-case
+    switch (selectState) {
+      case "favourite":
+        response = await getFavDayQuote();
+        break;
+      case "specific":
+        response = await getSpecificQuotes();
+        break;
+    }
+
+    setQuoteAuthor(response.author);
+    setQuoteText(response.body);
   };
 
   return (
@@ -23,11 +34,13 @@ const QuoteCaller = ({ setQuoteAuthor, setQuoteText }) => {
         <option value="specific">Specific quote</option>
       </select>
 
-      {isSpecificQuote ? (<div className={styles.options}>
-        <input type="text" placeholder="author name"></input>
-        <input type="number" placeholder="# of pages"></input>
-        <input type="text" placeholder="tags"></input>
-      </div>) : null}
+      {selectState === "specific" ? (
+        <div className={styles.options}>
+          <input type="text" placeholder="author name"></input>
+          <input type="number" placeholder="# of pages"></input>
+          <input type="text" placeholder="tags"></input>
+        </div>
+      ) : null}
 
       <div className={styles.button}>
         <button onClick={start}>start</button>

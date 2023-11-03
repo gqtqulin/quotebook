@@ -19,8 +19,8 @@ const App = () => {
 
   return (
     <div className={styles.page}>
-      <QuoteCaller setQuoteAuthor={setQuoteAuthor} setQuoteText={setQuoteText} />
-      <QuoteContent quoteAuthor={quoteAuthor} quoteText={quoteText} />
+      <QuoteCaller className={styles.caller} setQuoteAuthor={setQuoteAuthor} setQuoteText={setQuoteText} />
+      <QuoteContent className={styles.content} quoteAuthor={quoteAuthor} quoteText={quoteText} />
     </div>
   );
 }

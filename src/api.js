@@ -23,17 +23,8 @@ export const getUserToken = async () => {
   }
 }
 
+export const getSpecificQuotes = async () => {
 
-export const startSession = async () => {
-  try {
-    const response = await axios.post('http://localhost:3001/api/session', {
-      
-    });
-
-    return response.data;
-  } catch (e) {
-    console.error(e);
-  }
 }
 
 export const destroySession = async () => {
