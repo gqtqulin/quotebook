@@ -1,8 +1,16 @@
 
 .caller {
-    @apply flex items-center justify-center flex-col gap-4
+    @apply flex justify-center flex-col items-center gap-4;
 }
 
 .button {
-    @apply w-10 h-6 bg-red-200;
+    @apply w-10 h-6 bg-black text-white text-center;
+}
+
+.options {
+    @apply flex items-center justify-center flex-col;
+}
+
+.options input {
+    @apply text-center;
 }

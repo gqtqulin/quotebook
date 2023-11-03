@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-const userToken = "cae24442e08f28dd3950239a3331b158";
-
 export const getFavDayQuote = async () => {
   try {
     const response = await axios.get('http://localhost:3001/api/favquote');
@@ -26,18 +24,26 @@ export const getUserToken = async () => {
 }
 
 
+export const startSession = async () => {
+  try {
+    const response = await axios.post('http://localhost:3001/api/session', {
+      
+    });
 
-
-
-
-
-
-export const startSession = () => {
-
+    return response.data;
+  } catch (e) {
+    console.error(e);
+  }
 }
 
-export const destroySession = () => {
-  
+export const destroySession = async () => {
+  try {
+    const response = await axios.delete('http://localhost:3001/api/session');
+
+    return response.data;
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 
@@ -58,7 +64,6 @@ export const requestSpecificAuthorQuote = async (name) => {
     );
     
     const data = await response.json();
-    console.log('123');
     return data;
   } catch (error) {
     console.error(error);
