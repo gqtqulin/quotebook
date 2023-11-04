@@ -5,10 +5,17 @@ import { getUserToken } from "../api";
 
 const QuoteCaller = ({ setQuoteAuthor, setQuoteText }) => {
   const [selectState, setSelectState] = useState();
+  const [authorName, setAuthorName] = useState();
+  const [numberOfPages, setNumberOfPages] = useState();
+  const [tags, setTags] = useState();
+  const [filterWord, setFilterWord] = useState();
 
-  const handlerChangeSelect = (e) => {
-    setSelectState(e.target.value);
-  };
+  const handlerChangeSelect = (e) => setSelectState(e.target.value);
+
+  const handlerChangeAuthorName = (e) => setAuthorName(e.target.value);
+  const handlerChangeNumberOfPages = (e) => setNumberOfPages(e.target.value);
+  const handlerChangeTags = (e) => setTags(e.target.value);
+  const handlerChangeFilterWord = (e) => setFilterWord(e.target.value);
 
   const start = async () => {
     let response;
@@ -19,7 +26,12 @@ const QuoteCaller = ({ setQuoteAuthor, setQuoteText }) => {
         response = await getFavDayQuote();
         break;
       case "specific":
-        response = await getSpecificQuotes();
+        response = await getSpecificQuotes({
+          authorName: {authorName},
+          numberOfPages: {numberOfPages},
+          tags: {tags},
+          filterWord: {filterWord},
+        });
         break;
     }
 
@@ -36,9 +48,10 @@ const QuoteCaller = ({ setQuoteAuthor, setQuoteText }) => {
 
       {selectState === "specific" ? (
         <div className={styles.options}>
-          <input type="text" placeholder="author name"></input>
-          <input type="number" placeholder="# of pages"></input>
-          <input type="text" placeholder="tags"></input>
+          <input type="text" placeholder="author name" value={authorName} onChange={handlerChangeAuthorName}></input>
+          <input type="number" placeholder="# of pages" value={numberOfPages} onChange={handlerChangeNumberOfPages}></input>
+          <input type="text" placeholder="tags" value={tags} onChange={setTags}></input>
+          <input type="text" placeholder="filter word" value={filterWord} onChange={handlerChangeFilterWord}></input>
         </div>
       ) : null}
 
