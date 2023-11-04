@@ -15,6 +15,7 @@ app.get("/", (req, res) => {
   res.send("is alive");
 });
 
+
 app.get("/api/favquote", (req, res) => {
   const apiUrl = "https://favqs.com/api/qotd";
 
@@ -62,6 +63,60 @@ app.get("/api/session", (req, res) => {
   });
     
 });
+
+app.get("/api/quotes:author/:numberOfPages/:tags/:filterWord", (req, res) => {
+  let apiUrl = "https://favqs.com/api/quotes/?";
+
+  const params = req.params;
+
+  const keys = Object.keys(params);
+  const values = Object.values(params);
+
+  values.forEach((value, i) => {
+    if (value) {
+
+      if (i > 0) apiUrl += "&";
+
+      // eslint-disable-next-line default-case
+      switch (keys[i]) {
+        case "author":
+          apiUrl += `filter=${value.replaceAll(" ", "+")}&type=author`;
+          break;
+        case "numberOfPages":
+          apiUrl += `page=${value}`;
+          break;
+        case "tags":
+          apiUrl += `filter=${value.replaceAll(" ", "+")}&type=tag`;
+          break;
+        case "filterWord":
+          apiUrl += `filter=${value.replaceAll(" ", "+")}`;
+          break;
+      }
+    }
+  })
+
+  console.log(apiUrl);
+
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Token token="${userToken}"`,
+    }
+  }
+
+  axios
+    .get(apiUrl, options)
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch((error) => {
+      // Обработка ошибки, если запрос к внешнему API не удался
+      console.error("Ошибка при запросе к внешнему API:", error);
+      res
+        .status(500)
+        .json({ error: "Не удалось получить данные из внешнего API" });
+    });
+})
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

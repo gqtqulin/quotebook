@@ -5,8 +5,8 @@ import QuoteContent from "./components/QuoteContent";
 import { getUserToken } from "./api";
 
 const App = () => {
-  const [quoteText, setQuoteText] = useState();
-  const [quoteAuthor, setQuoteAuthor] = useState();
+  // массив обектов Quote
+  const [quoteContent, setQuoteContent] = useState();
   const [userToken, setUserToken] = useState();
 
   useEffect(() => {
@@ -19,8 +19,8 @@ const App = () => {
 
   return (
     <div className={styles.page}>
-      <QuoteCaller className={styles.caller} setQuoteAuthor={setQuoteAuthor} setQuoteText={setQuoteText} />
-      <QuoteContent className={styles.content} quoteAuthor={quoteAuthor} quoteText={quoteText} />
+      <QuoteCaller className={styles.caller} setQuoteContent={setQuoteContent} />
+      <QuoteContent className={styles.content} quoteContent={quoteContent} />
     </div>
   );
 }

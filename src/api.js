@@ -4,10 +4,10 @@ export const getFavDayQuote = async () => {
   try {
     const response = await axios.get("http://localhost:3001/api/favquote");
 
-    return {
+    return [{
       author: response.data.quote.author,
-      body: response.data.quote.body,
-    };
+      quote: response.data.quote.body,
+    }];
   } catch (error) {
     console.error(error);
   }
@@ -25,7 +25,6 @@ export const getUserToken = async () => {
 
 export const getSpecificQuotes = async (paramsObject) => {
   try {
-
     let params = "";
     const keys = Object.keys(paramsObject);
     const values = Object.values(paramsObject);
@@ -34,9 +33,18 @@ export const getSpecificQuotes = async (paramsObject) => {
       if (value) params += `${keys[i]}=${value}&`;
     })
 
-    const response = await axios.get("http://localhost:3001/api/quotes/" + params);
+    const response = await axios.get("http://localhost:3001/api/quotes/?" + params);
 
-    return response.data;
+    const quotesList = [];
+
+    response.quotes.forEach((quoteData) => {
+      quotesList.push({
+        author: quoteData.author,
+        quote: quoteData.body,
+      })
+    });
+
+    return quotesList;
   } catch (e) {
     console.error(e);
   }
@@ -49,28 +57,5 @@ export const destroySession = async () => {
     return response.data;
   } catch (e) {
     console.error(e);
-  }
-};
-
-export const requestSpecificAuthorQuote = async (name) => {
-  //if (!name) throw new Error("name input is empty");
-  //const authorNameForResponse = name.replaceAll(" ", "+");
-  try {
-    const response = await fetch(
-      `https://favqs.com/api/quotes/?filter=Aristotle&type=author`,
-      {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Access-Control-Allow-Headers": "*",
-          Authorization: 'Token token="cae24442e08f28dd3950239a3331b158"',
-        },
-      }
-    );
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
   }
 };

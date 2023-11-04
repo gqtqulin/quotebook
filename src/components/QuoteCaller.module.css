@@ -11,6 +11,6 @@
     @apply flex items-center justify-center flex-col;
 }
 
-.options input {
+.caller input {
     @apply text-center;
 }

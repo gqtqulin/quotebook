@@ -3,7 +3,7 @@ import { getFavDayQuote, getSpecificQuotes } from "../api";
 import styles from "./QuoteCaller.module.css";
 import { getUserToken } from "../api";
 
-const QuoteCaller = ({ setQuoteAuthor, setQuoteText }) => {
+const QuoteCaller = ({ setQuoteContent }) => {
   const [selectState, setSelectState] = useState();
   const [authorName, setAuthorName] = useState();
   const [numberOfPages, setNumberOfPages] = useState();
@@ -23,6 +23,7 @@ const QuoteCaller = ({ setQuoteAuthor, setQuoteText }) => {
     // eslint-disable-next-line default-case
     switch (selectState) {
       case "favourite":
+        console.log('fav q start')
         response = await getFavDayQuote();
         break;
       case "specific":
@@ -35,13 +36,13 @@ const QuoteCaller = ({ setQuoteAuthor, setQuoteText }) => {
         break;
     }
 
-    setQuoteAuthor(response.author);
-    setQuoteText(response.body);
+    setQuoteContent(response);
   };
 
   return (
     <div className={styles.caller}>
       <select onChange={handlerChangeSelect}>
+        <option>Select</option>
         <option value="favourite">Favourite day quote</option>
         <option value="specific">Specific quote</option>
       </select>
@@ -50,7 +51,7 @@ const QuoteCaller = ({ setQuoteAuthor, setQuoteText }) => {
         <div className={styles.options}>
           <input type="text" placeholder="author name" value={authorName} onChange={handlerChangeAuthorName}></input>
           <input type="number" placeholder="# of pages" value={numberOfPages} onChange={handlerChangeNumberOfPages}></input>
-          <input type="text" placeholder="tags" value={tags} onChange={setTags}></input>
+          <input type="text" placeholder="tags" value={tags} onChange={handlerChangeTags}></input>
           <input type="text" placeholder="filter word" value={filterWord} onChange={handlerChangeFilterWord}></input>
         </div>
       ) : null}
